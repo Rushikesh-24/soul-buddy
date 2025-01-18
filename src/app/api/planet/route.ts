@@ -10,22 +10,36 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const response = await axios.post(
-      "https://deb1-34-106-82-159.ngrok-free.app/get_planetary_data",
-      { dob, tob, place }
+    console.log(dob, tob, place, name, gender, address)
+    const response = await fetch(
+      "https://2e62-34-106-82-159.ngrok-free.app/get_planetary_data",
+      {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ dob, tob, place }),
+      }
     );
-    const data = response.data;
+
+    if (!response.ok) {
+      throw new Error(
+      `API responded with status ${response.status}: ${response.statusText}`
+      );
+    }
+    
+    const data = await response.json();
 
     console.log(data);
 
     const input_value = `{
-      ${name} , ${dob} , ${tob} , ${address} , ${gender} ,
-      "data": ${JSON.stringify(data)}
+      ${name}, ${dob}, ${tob}, ${data?.timezone}, ${gender}, ${address}
+      "data":${JSON.stringify(data)}
     }`;
     console.log(input_value);
 
     const response2 = await fetch(
-      "https://api.langflow.astra.datastax.com/lf/629526ed-a9a5-4287-adc8-4f105621aaa2/api/v1/run/e368f11b-3377-4ede-9495-eca9d20ffe14?stream=false",
+      "https://api.langflow.astra.datastax.com/lf/629526ed-a9a5-4287-adc8-4f105621aaa2/api/v1/run/4c827d85-ad37-4ffa-9a8a-9e101fcf3519?stream=false",
       {
         method: "POST",
         headers: {
@@ -37,17 +51,17 @@ export async function POST(req: NextRequest) {
           output_type: "chat",
           input_type: "chat",
           tweaks: {
-            "ChatInput-8O38n": {},
-            "Prompt-X6mux": {},
-            "ChatOutput-IOKzh": {},
-            "Google Generative AI Embeddings-k7fn4": {},
-            "GoogleGenerativeAIModel-CytJY": {},
-            "Prompt-8NmIe": {},
-            "AstraDB-rkWCw": {},
-            "ParseData-mqwyy": {},
-            "File-K7XBi": {},
-            "SplitText-G3PcG": {},
-            "NVIDIAEmbeddingsComponent-wW3gw": {},
+            "ChatOutput-CS2VM": {},
+  "TextInput-Rtz7X": {},
+  "GroqModel-cpiZO": {},
+  "AstraDB-Sh6n8": {},
+  "MessagetoData-kmpvm": {},
+  "Google Generative AI Embeddings-P9DzO": {},
+  "ChatInput-63T57": {},
+  "JSONCleaner-s1YGU": {},
+  "Prompt-LnzjY": {}
+
+
           },
         }),
       }

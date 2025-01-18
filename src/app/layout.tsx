@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${Kobe2.variable} antialiased cursor-none ${Voyage.variable} ${Kobe.variable} bg-[#fdfdfb] text-[#3d3d3b]`}
+        className={`${Kobe2.variable} antialiased cursor-none ${Voyage.variable} ${Kobe.variable} bg-[#fdfdfb] text-[#3d3d3b] `}
       >
         <Cursor />
         {children}

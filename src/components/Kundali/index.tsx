@@ -21,6 +21,7 @@ const planetAbbr = {
 
 function Kundali() {
   const [gems, setGems] = useState([]);
+
   const getGemData = async(data) => {
     const gemsR = await fetch('https://workers.vedicrishi.in/vedicrishi',{
         method: 'POST',
@@ -57,10 +58,7 @@ function Kundali() {
     getGemData();
   },[])
 
-  useEffect(()=>{
-    console.log(gems);
-  },[gems])
-
+  
   return (
     <div className='min-h-screen w-full flex flex-col justify-center items-center bg-carpet'>
     
@@ -106,7 +104,11 @@ function Kundali() {
 function HouseChart(){
 
     const [data, setData] = useState(null)
-
+    const [houses, setHouses] = useState([]);
+    useEffect(()=>{
+        setHouses(JSON.parse(localStorage.getItem('houses')));
+      },[])
+    
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch('/api/planet',{
@@ -138,6 +140,9 @@ function HouseChart(){
             <p className='text-xl text-center mb-5'>Birth Chart</p>
             <div className="flex flex-col items-center justify-center  h-1/2 absolute">
                 <Image src={Chart.src} alt="Chart" className='w-full h-full ' width={190} height={180} />
+                {
+                    houses &&
+                    <>
                 <span className='bg-black absolute h-5 rounded-full text-white flex justify-center items-center w-5 top-[40%] text-xs'>1</span>
                 <span className='bg-black absolute h-5 rounded-full text-white flex justify-center items-center w-5 top-[16%] left-[24%] text-xs'>2</span>
                 <span className='bg-black absolute h-5 rounded-full text-white flex justify-center items-center w-5 top-[25%] left-[3%] text-xs'>3</span>
@@ -156,23 +161,20 @@ function HouseChart(){
 
                 <span className='bg-black absolute h-5 rounded-full text-white flex justify-center items-center w-5 top-[72%] right-[3%] text-xs'>9</span>
 
-                <span id="1" className=' absolute flex justify-center items-center  top-[20%] text-sm'>1</span>
-                <span id="2" className=' absolute flex justify-center items-center  top-[6%] left-[24%] text-sm'>Su, Ra</span>
-                <span id="3" className=' absolute flex justify-center items-center  top-[25%] left-[10%] text-sm'>3</span>
-                <span id="4" className=' absolute flex justify-center items-center  top-[47%] left-[20%] text-sm'>4</span>
-
-                <span id="5" className=' absolute flex justify-center items-center  top-[72%] left-[10%] text-sm'>5</span>
-                <span id="6" className=' absolute flex justify-center items-center  top-[89%] left-[23.5%] text-sm'>6</span>
-
-                <span id="7" className=' absolute flex justify-center items-center  top-[74%] left-[48%] text-sm'>7</span>
-                <span id="8" className=' absolute flex justify-center items-center  top-[89%] left-[73%] text-sm'>8</span>
-
-                
-                <span id="12" className=' absolute flex justify-center items-center  top-[5%] right-[24%] text-sm'>12</span>
-                <span id="11" className=' absolute flex justify-center items-center  top-[25%] right-[15%] text-sm'>11</span>
-                <span id="10" className=' absolute flex justify-center items-center  top-[47%] right-[22%] text-sm'>10</span>
-
-                <span id="9" className=' absolute flex justify-center items-center  top-[72%] right-[10%] text-sm'>9</span>
+                <span id="1" className=' absolute flex justify-center items-center  top-[20%] text-sm'>{houses[1]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="2" className=' absolute flex justify-center items-center  top-[6%] left-[24%] text-sm'>{houses[2]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="3" className=' absolute flex justify-center items-center  top-[25%] left-[10%] text-sm'>{houses[3]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="4" className=' absolute flex justify-center items-center  top-[47%] left-[20%] text-sm'>{houses[4]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="5" className=' absolute flex justify-center items-center  top-[72%] left-[10%] text-sm'>{houses[5]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="6" className=' absolute flex justify-center items-center  top-[89%] left-[23.5%] text-sm'>{houses[6]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="7" className=' absolute flex justify-center items-center  top-[74%] left-[48%] text-sm'>{houses[7]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="8" className=' absolute flex justify-center items-center  top-[89%] left-[73%] text-sm'>{houses[8]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="12" className=' absolute flex justify-center items-center  top-[5%] right-[24%] text-sm'>{houses[12]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="11" className=' absolute flex justify-center items-center  top-[25%] right-[15%] text-sm'>{houses[11]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="10" className=' absolute flex justify-center items-center  top-[47%] right-[22%] text-sm'>{houses[10]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                <span id="9" className=' absolute flex justify-center items-center  top-[72%] right-[10%] text-sm'>{houses[9]?.planets.map((planet)=>{return planetAbbr[planet.name]+" "})}</span>
+                </>
+                }
             </div>
         </div>
     );

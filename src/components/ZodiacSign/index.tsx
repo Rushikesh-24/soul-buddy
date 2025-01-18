@@ -204,7 +204,7 @@ function ZodiacSign() {
   };
 
   return (
-    <div className="w-full h-screen flex justify-center items-center border overflow-hidden bg-[#f3f3ee]">
+    <div className="w-full h-screen flex justify-center items-center border overflow-hidden bg-[#f3f3ee] z-10">
       <div className="w-[75%] md:h-[65%] h-[90%] bg-[#fdfdfb] flex justify-center items-center flex-col md:flex-row drop-shadow-sm">
         <div className="md:w-[44.3%] md:h-full w-full h-1/2 flex justify-center items-center flex-col gap-10">
           <h2 className="font-kobe md:text-3xl text-2xl text-left w-4/5">Find your zodiac sign</h2>
@@ -267,7 +267,7 @@ function ZodiacSign() {
           {!click ? (
             <Image src={chakra} alt="" className="md:h-auto h-3/4 chakra-image" />
           ) : zodiacSign && (
-            <div className="relative w-4/5 h-4/5 flex justify-center items-center z-10">
+            <div className="relative w-4/5 h-4/5 flex justify-center items-center">
               <button 
                 onClick={() => {navigateSign('prev')}}
                 disabled={false}

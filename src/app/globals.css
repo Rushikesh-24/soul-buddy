@@ -8,3 +8,17 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+body {
+    overscroll-behavior: none;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

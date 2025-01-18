@@ -12,6 +12,11 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily:{
+        kobe : ["var(--font-kobe)"],
+        kobe2 : ["var(--font-kobe2)"],
+        voyage : ["var(--font-voyage)"],
+      }
     },
   },
   plugins: [],

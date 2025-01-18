@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       );
     }
     const response = await axios.post(
-      "https://deb1-34-106-82-159.ngrok-free.app/get_planetary_data",
+      "https://2e62-34-106-82-159.ngrok-free.app/get_planetary_data",
       { dob, tob, place }
     );
     const data = response.data;

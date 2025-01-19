@@ -7,7 +7,6 @@ interface Props {}
 const Page: NextPage<Props> = ({}) => {
   return <div className='relative'>
     <BirthDetailsForm/>
-    <ChatbotUI/>
   </div>
 }
 

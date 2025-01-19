@@ -47,9 +47,9 @@ function Kundali() {
     getGemData();
   },[])
 
-  
+
   return (
-    <div className='min-h-screen w-full flex flex-col justify-center items-center bg-carpet'>
+    <div className='min-h-screen w-full flex flex-col justify-center items-center bg-carpet z-10'>
     
         <HTMLFlipBook  width={600} height={700}>
             <div className="demoPage flex items-center relative justify-center h-full w-full bg-white border-2 p-5 py-20 border-r-2 border-red-500">

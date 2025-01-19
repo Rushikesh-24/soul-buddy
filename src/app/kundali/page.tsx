@@ -5,6 +5,8 @@ import Ganesh from '../../../public/ganesh.svg'
 import Chart from '../../../public/chart.webp'
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { MessageCircle } from 'lucide-react';
+import Link from 'next/link';
 
 const planetAbbr = {
     "Mercury": "Me",
@@ -22,7 +24,9 @@ const planetAbbr = {
 function KundaliPage() {
     const [gems, setGems] = useState([]);
       const [data, setData] = useState(null)
+      const [username, setUsername] = useState("")
       const getGemData = async(data) => {
+        setUsername(localStorage.getItem('astrouser'));
         setGems(JSON.parse(localStorage.getItem('gems')));
         const insights = localStorage.getItem('insights');
         const string = insights?.slice(9,insights.length-1);
@@ -49,7 +53,9 @@ function KundaliPage() {
     
   return (
     <div className='min-h-screen w-full flex flex-col justify-center items-center bg-carpet'>
-    
+        <Link href='/chat' className='h-10 w-10 bg-white z-50 fixed bottom-10 right-10 p-2 rounded-full shadow-md'>
+            <MessageCircle />
+        </Link>
         <HTMLFlipBook  width={600} height={700}>
             <div className="demoPage flex items-center relative justify-center h-full w-full bg-white border-2 p-5 py-20 border-r-2 border-red-500">
                 <div className='w-fit mx-auto'>
@@ -58,9 +64,9 @@ function KundaliPage() {
                 <p className='text-red-500 mt-2 text-lg text-center'>|| Om Ganeshay Namah ||</p>
                 <div className='absolute bottom-10 text-center left-0 w-full pointer-events-none'>
                     <p className='text-red-500 font-bold mb-5 text-xl text-center'>Janm Kundali</p>
-                    <p className=' underline underline-offset-4'>Rushikesh Bhikaro Gaonkar</p>
-                    <p className=' underline underline-offset-4 decoration-black w-full text-white'>Rushikesh Bhikaro Gaonkar</p>
-                    <p className=' underline underline-offset-4 decoration-black w-full text-white'>Rushikesh Bhikaro Gaonkar</p>
+                    <p className=' underline underline-offset-4'>{username}</p>
+                    <p className=' underline underline-offset-4 decoration-black w-full text-white'>{username}</p>
+                    <p className=' underline underline-offset-4 decoration-black w-full text-white'>{username}</p>
                 </div>
             </div>
             <div className="demoPage bg-white border-2 p-5 border-l-0 border-red-500"><HouseChart /></div>

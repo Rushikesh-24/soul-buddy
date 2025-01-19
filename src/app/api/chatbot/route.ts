@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
         const {text,name}  = await req.json();
         const input_value = `${name} , {question}: ${text}`;
         const response = await fetch(
-            "https://api.langflow.astra.datastax.com/lf/629526ed-a9a5-4287-adc8-4f105621aaa2/api/v1/run/1fa9cb17-a8ba-4cf3-bb89-003b604a7630?stream=false",
+            "https://api.langflow.astra.datastax.com/lf/629526ed-a9a5-4287-adc8-4f105621aaa2/api/v1/run/371edbba-ddd7-482f-9a03-0e3189beda5d?stream=false",
             {
               method: "POST",
               headers: {

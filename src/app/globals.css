@@ -22,3 +22,7 @@ body {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+footer{
+z-index: 20;
+}

@@ -5,7 +5,7 @@ import Ganesh from '../../../public/ganesh.svg'
 import Chart from '../../../public/chart.webp'
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-
+import { ReactTyped } from "react-typed";
 const planetAbbr = {
     "Mercury": "Me",
     "Venus": "Ve",
@@ -71,13 +71,17 @@ function Kundali() {
                 {
                     gems?.map((gem, index)=>{
                         return( 
-                            <div key={index} className='border border-black mb-5 p-3'>
-                                <p className='font-semibold'>{gem.type}</p>
+                          <div key={index} className='border border-black mb-5 p-3 '>
+                         
+                           
+                           
+                              
+                                <p className='font-semibold'><ReactTyped strings={[`${gem.type}` ]} typeSpeed={80}  /></p>
                                 <p>Name: {gem.name}</p>
                                 <p>Deity: {gem.gem_deity}</p>
                                 <p>Wear Day: {gem.wear_day}</p>
                                 <p>Semi Gem: {gem.semi_gem}</p>
-                            </div>
+                </div>
                         )
                     })
                 }

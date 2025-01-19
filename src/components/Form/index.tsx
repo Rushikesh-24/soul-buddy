@@ -188,6 +188,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               }
               else{
                   const data2 = await response2.json();
+                  localStorage.setItem('astrouser', formData.name);
                   localStorage.setItem('insights', data2.outputs[0].outputs[0].artifacts.message.replace(/\\n/g, '').replace(/\\/g, ''));
                   console.log(data2)
               }

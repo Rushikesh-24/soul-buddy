@@ -49,7 +49,7 @@ const Footer = () => {
           <h3 className="text-2xl font-bold bg-gradient-to-r from-red-400 to-red-500 bg-clip-text text-transparent">
             Soul-Buddy
           </h3>
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-gray-300 leading-relaxed view">
             ✨ Guiding you with the stars—stay connected for cosmic updates! 🌟
             Discover your path through astrology and spiritual guidance.
           </p>
@@ -121,7 +121,7 @@ const Footer = () => {
 
       {/* Copyright Section */}
       <div className="text-center mt-12 border-t border-gray-700 pt-8 text-sm text-gray-400">
-        <p className="max-w-7xl mx-auto px-6">
+        <p className="max-w-7xl mx-auto px-6 view">
           © {new Date().getFullYear()} Soul-Buddy. All Rights Reserved.
         </p>
       </div>

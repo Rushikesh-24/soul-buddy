@@ -1,4 +1,4 @@
-export const maxDuration = 20;
+export const maxDuration = 30;
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 export async function POST(req: NextRequest) {

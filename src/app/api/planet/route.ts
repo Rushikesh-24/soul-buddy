@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     }
     console.log(dob, tob, place, name, gender, address)
     const response = await fetch(
-      "https://2e62-34-106-82-159.ngrok-free.app/get_planetary_data",
+      "https://17fb-34-125-92-116.ngrok-free.app/get_planetary_data",
       {
       method: "POST",
       headers: {

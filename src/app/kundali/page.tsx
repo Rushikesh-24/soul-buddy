@@ -19,35 +19,34 @@ const planetAbbr = {
     "Pluto": "Pl"
   }
 
-function Kundali() {
-  const [gems, setGems] = useState([]);
-  const [data, setData] = useState(null)
-  const getGemData = async(data) => {
-    setGems(JSON.parse(localStorage.getItem('gems')));
-    const insights = localStorage.getItem('insights');
-    const string = insights?.slice(9,insights.length-1);
-    const match = localStorage.getItem('insights').match(/```json([\s\S]*?)```/);
-    if (match) {
-        const jsonString = match[1].trim().replace(/\\n/g, '').replace(/\\/g, ''); // Get the content between the code block markers
-        console.log(jsonString); // JSON string extracted
-        const jsonObject = JSON.parse(jsonString); // Convert to a JavaScript object
-        console.log(jsonObject); // Use the parsed JSON object
-        setData(jsonObject);
-    }
-    else{
-        const jsonString = string.trim().replace(/\\n/g, '').replace(/\\/g, ''); // Get the content between the code block markers
-        console.log(jsonString); // JSON string extracted
-        const jsonObject = JSON.parse(jsonString); // Convert to a JavaScript object
-        console.log(jsonObject); // Use the parsed JSON object
-        setData(jsonObject);
-    }
-  }
-
-  useEffect(()=>{
-    getGemData();
-  },[])
-
-  
+function KundaliPage() {
+    const [gems, setGems] = useState([]);
+      const [data, setData] = useState(null)
+      const getGemData = async(data) => {
+        setGems(JSON.parse(localStorage.getItem('gems')));
+        const insights = localStorage.getItem('insights');
+        const string = insights?.slice(9,insights.length-1);
+        const match = localStorage.getItem('insights').match(/```json([\s\S]*?)```/);
+        if (match) {
+            const jsonString = match[1].trim().replace(/\\n/g, '').replace(/\\/g, ''); // Get the content between the code block markers
+            console.log(jsonString); // JSON string extracted
+            const jsonObject = JSON.parse(jsonString); // Convert to a JavaScript object
+            console.log(jsonObject); // Use the parsed JSON object
+            setData(jsonObject);
+        }
+        else{
+            const jsonString = string.trim().replace(/\\n/g, '').replace(/\\/g, ''); // Get the content between the code block markers
+            console.log(jsonString); // JSON string extracted
+            const jsonObject = JSON.parse(jsonString); // Convert to a JavaScript object
+            console.log(jsonObject); // Use the parsed JSON object
+            setData(jsonObject);
+        }
+      }
+    
+      useEffect(()=>{
+        getGemData();
+      },[])
+    
   return (
     <div className='min-h-screen w-full flex flex-col justify-center items-center bg-carpet'>
     
@@ -143,7 +142,6 @@ function Kundali() {
   )
 }
 
-
 function HouseChart(){
 
     const [data, setData] = useState(null)
@@ -200,4 +198,5 @@ function HouseChart(){
         </div>
     );
 }
-export default Kundali
+
+export default KundaliPage

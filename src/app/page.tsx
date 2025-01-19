@@ -7,7 +7,6 @@ export default function Home() {
     <div className="w-full flex justify-center items-center flex-col">
       <Hero />
       <ZodiacSign/>
-      <Kundali />
     </div>
   );
 }

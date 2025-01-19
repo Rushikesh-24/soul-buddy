@@ -1,9 +1,11 @@
 'use client'
 import React, { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Loader } from 'lucide-react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const BirthDetailsForm = () => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     gender: '',
@@ -81,7 +83,7 @@ interface FormData {
 }
 
 interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement | HTMLSelectElement> {}
-
+const { push } = useRouter()
 const handleInputChange = (e: InputChangeEvent) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -89,9 +91,46 @@ const handleInputChange = (e: InputChangeEvent) => {
         [name]: value
     }));
 };
+//@ts-ignore
+const getGemData = async(birth, lat, long, hour, min, month, year, gender, name) => {
+  const gemsR = await fetch('https://workers.vedicrishi.in/vedicrishi',{
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          "apiName": "basic_gem_suggestion",
+          "userData":{
+              "birth": birth,
+              "country": "India",
+              "day": 1,
+              "gender": gender,
+              "hour": hour,
+              "language": "english",
+              "lat": lat,
+              "lon": long,
+              "min": min,
+              "month": month,
+              "nameu": name,
+              "tzone": 5.5,
+              "year": year
+          }
+      }) 
+  })
+  const gemsData = await gemsR.json();
+  let sGems:any = []
+  Object.keys(gemsData.response).forEach(function(key,index) {
+      
+      sGems.push({type: key, ...gemsData.response[key]});
+  });
+  localStorage.setItem('gems', JSON.stringify(sGems));
+  push("/kundali")
+  setLoading(false)
+}
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     // Handle form submission - you can add your logic here
     console.log('Form Data:', formData);
     //post request to a route
@@ -124,6 +163,8 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             }
 
             const data = await response.json();
+            let lat = JSON.parse(data.data2.outputs[0].outputs[0].artifacts.message).data.latitude
+            let long = JSON.parse(data.data2.outputs[0].outputs[0].artifacts.message).data.longitude
             const birthChart = (JSON.parse(data.data2.outputs[0].outputs[0].artifacts.message).birth_chart);
             
             let houses:any = []
@@ -147,8 +188,11 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               }
               else{
                   const data2 = await response2.json();
-                  console.log(data2);
+                  localStorage.setItem('insights', data2.outputs[0].outputs[0].artifacts.message.replace(/\\n/g, '').replace(/\\/g, ''));
+                  console.log(data2)
               }
+
+              getGemData(`${formData.city}, ${formData.state}`, lat, long, formData.hour, formData.minute, formData.month, formData.year, formData.gender, formData.name);
           } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
@@ -160,6 +204,13 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center border overflow-hidden bg-[#f3f3ee] z-10">
+      {
+        loading &&
+        <div className="w-screen h-screen fixed flex-col top-0 left-0 backdrop-blur-lg flex items-center justify-center bg-[#fdfdfb] z-20">
+          <Loader color="black" size="50" className=" animate-spin" />
+          <h2 className="font-kobe text-3xl mb-8 text-center">Making your kundali...</h2>
+        </div>
+      }
       <div className="w-[75%] md:h-[85%] h-[90%] bg-[#fdfdfb] flex justify-center drop-shadow-md items-center flex-col p-8">
         <h2 className="font-kobe text-3xl mb-8">Birth Details</h2>
         

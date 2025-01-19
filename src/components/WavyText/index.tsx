@@ -9,7 +9,7 @@ const WavyText = () => {
   useEffect(() => {
     const textContainer = containerRef.current;
 
-    const easeFactor = 0.005;
+    const easeFactor = 0.03;
     let mousePosition = { x: 0.5, y: 0.5 };
     let targetMousePosition = { x: 0.5, y: 0.5 };
     let prevPosition = { x: 0.5, y: 0.5 };
@@ -36,7 +36,7 @@ const WavyText = () => {
         vec2 pixelToMouseDirection = centerOfPixel - u_mouse;
         float pixelDistanceToMouse = length(pixelToMouseDirection);
 
-        float strength = smoothstep(0.3, 0.0, pixelDistanceToMouse);
+        float strength = smoothstep(0.2, 0.0, pixelDistanceToMouse);
         vec2 uvOffset = strength * -mouseDirection * 0.3;
         vec2 uv = vUv - uvOffset;
 
@@ -45,7 +45,7 @@ const WavyText = () => {
       }
     `;
 
-    function createTexture(text, font, size, color, fontWeight = "100") {
+    function createTexture(text, font="Clarendon", size, color, fontWeight = "100") {
       const canvas = document.createElement("canvas");
       const context = canvas.getContext("2d");
       const canvasWidth = window.innerWidth * 2;
@@ -60,7 +60,7 @@ const WavyText = () => {
       const fontSize = size || Math.floor(canvasWidth / 8);
 
       context.fillStyle = "#1a1a1a";
-      context.font = `${fontWeight} ${fontSize}px ${font}`;
+      context.font = `${fontWeight} ${fontSize}px ${font || "Clarendon"}`;
       context.textAlign = "center";
       context.textBaseline = "middle";
 
@@ -70,7 +70,7 @@ const WavyText = () => {
       const textMetrics = context.measureText(text);
       const textWidth = textMetrics.width || 0;
 
-      const scaleFactor = Math.min(0.6, canvasWidth / textWidth);
+      const scaleFactor = Math.min(0.4, canvasWidth / textWidth);
       const aspectCorrection = canvasWidth / canvasHeight;
 
       context.setTransform(
@@ -135,7 +135,7 @@ const WavyText = () => {
     function reloadTexture() {
       const newTexture = createTexture(
         "Soul Buddy",
-        "kobe2",
+        "Clarendon",
         null,
         "#ffffff",
         "100"
@@ -145,7 +145,7 @@ const WavyText = () => {
     }
 
     initializeScene(
-      createTexture("Soul Buddy", "kobe2", null, "#ffffff", "100")
+      createTexture("Soul Buddy", "Clarendon", null, "#ffffff", "100")
     );
 
     function animateScene() {
@@ -201,7 +201,7 @@ const WavyText = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute h-full w-full overflow-hidden" />
+    <div ref={containerRef} className="absolute h-full w-full overflow-hidden font-kobe2" />
   );
 };
 
